@@ -1,0 +1,15 @@
+Package: fitnessR
+Type: Package
+Title: fitnessR
+Version: 1.0.0
+Author: Jesus Chavarria-Palma, Jeffrey Barrick
+Maintainer: Jeffrey Barrick <jeffrey.e.barrick@gmail.com>
+Description: Functions for calculating relative fitness from co-culture competition assays
+License: GPLv3
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dplyr
+RoxygenNote: 7.2.2
+Depends: 
+    R (>= 2.10)
