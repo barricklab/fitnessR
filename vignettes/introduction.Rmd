@@ -1,0 +1,21 @@
+---
+title: "Introduction to fitnessR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This R package is for calculating the relative fitness of two cell types. Counts of each cell type before and after they are co-cultured are input. 
+
+```{r setup}
+library(fitnessR)
+```
