@@ -1,4 +1,4 @@
-﻿strain1,strain2,transfer_dilution,strain1_initial_count,strain2_initial_count,strain1_final_count,strain2_final_count
+﻿competitor1,competitor2,transfer_dilution,competitor1_initial_count,competitor2_initial_count,competitor1_final_count,competitor2_final_count
 ZBD1,DL160,1000000,54,69,73,41
 ZBD1,DL160,1000000,61,97,44,34
 ZBD1,DL160,1000000,75,25,100,27
