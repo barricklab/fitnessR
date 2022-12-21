@@ -1,4 +1,7 @@
 
+# used for silently setting line number
+pkg.env <- new.env()
+
 #helper function
 flip_dilution = function(
     dilution
@@ -80,6 +83,19 @@ calculate_one_fitness = function(
   competitor2_initial_total = competitor2_initial_count/competitor2_initial_dilution*competitor2_initial_volume
   competitor2_final_total = competitor2_final_count/competitor2_final_dilution*competitor2_final_volume*transfer_dilution
 
+  #Error if number of either competitor decreased
+  line_number_text =""
+  if(!is.na(pkg.env$error_line_number)) {
+    line_number_text = paste0("ERROR encountered on row ", pkg.env$error_line_number, ".")
+  }
+  if (competitor1_final_total < competitor1_initial_total) {
+    stop(paste(c("The final number of competitor1 is less than initial number of competitor1. Relative fitness cannot be calculated in this case.", line_number_text), collapse=" "))
+  }
+
+  if (competitor2_final_total < competitor2_initial_total) {
+    stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case. ", line_number_text), collapse=" "))
+  }
+
   competitor1_malthusian_parameter = log(competitor1_final_total/competitor1_initial_total)
   competitor2_malthusian_parameter = log(competitor2_final_total/competitor2_initial_total)
 
@@ -87,6 +103,50 @@ calculate_one_fitness = function(
 
   return(relative_fitness)
 }
+
+calculate_one_fitness_wrapper = function(
+    transfer_dilution=1,
+    competitor1_initial_count,
+    competitor1_initial_dilution=1,
+    competitor1_initial_volume=1,
+    competitor1_final_count,
+    competitor1_final_dilution=1,
+    competitor1_final_volume=1,
+    competitor2_initial_count,
+    competitor2_initial_dilution=1,
+    competitor2_initial_volume=1,
+    competitor2_final_count,
+    competitor2_final_dilution=1,
+    competitor2_final_volume=1,
+    line_number
+){
+
+  pkg.env$error_line_number=line_number
+
+  relative_fitness = (
+    calculate_one_fitness(
+      transfer_dilution=transfer_dilution,
+      competitor1_initial_count=competitor1_initial_count,
+      competitor1_initial_dilution=competitor1_initial_dilution,
+      competitor1_initial_volume=competitor1_initial_volume,
+      competitor1_final_count=competitor1_final_count,
+      competitor1_final_dilution=competitor1_final_dilution,
+      competitor1_final_volume=competitor1_final_volume,
+      competitor2_initial_count=competitor2_initial_count,
+      competitor2_initial_dilution=competitor2_initial_dilution,
+      competitor2_initial_volume=competitor2_initial_volume,
+      competitor2_final_count=competitor2_final_count,
+      competitor2_final_dilution=competitor2_final_dilution,
+      competitor2_final_volume=competitor2_final_volume
+    )
+  )
+
+  pkg.env$error_line_number = NA
+
+  return(relative_fitness)
+
+}
+
 
 #' Calculates relative fitness given a data frame of cell/colony counts
 #'
@@ -154,9 +214,7 @@ calculate_fitness = function(
   }
 
   if (!all(required_competition_column_list %in% required_competition_column_list)){
-    cat(paste(c("Not all required columns were present in input:", required_competition_column_list), collapse="\n  "))
-    errorCondition("INVALID INPUT")
-    return()
+    stop(paste(c("Not all required columns were present in input:", required_competition_column_list), collapse="\n  "))
   }
 
   input_competition_df = data.frame(input_df[,!(col_names %in% competition_columns_present_list)])
@@ -171,6 +229,9 @@ calculate_fitness = function(
   for (i in 1:length(competition_columns_present_list)) {
     competition_df[,competition_columns_present_list[i]] = input_df[,competition_columns_present_list[i]]
   }
+
+  #add a line number for reporting errors
+  competition_df$line_number=1:nrow(competition_df)
 
   #flip all dilution factors to be >1
 
@@ -191,10 +252,13 @@ calculate_fitness = function(
 
   #perform fitness calculations
   relative_fitness = apply(competition_df, 1, function(X) {
-    do.call(calculate_one_fitness,as.list(X))
+    do.call(calculate_one_fitness_wrapper,as.list(X))
   })
 
-  #add back all metadata on the left, then calculated fitness values, then
+  #remove line numbers
+  competition_df$line_number <- NULL
+
+  #add back all metadata on the left, then calculated fitness values, then calculation results
   output_df = cbind(metadata_df, data.frame(relative_fitness=relative_fitness), competition_df)
 
   return(output_df)
