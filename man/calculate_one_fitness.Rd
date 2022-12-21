@@ -2,50 +2,38 @@
 % Please edit documentation in R/fitness.R
 \name{calculate_one_fitness}
 \alias{calculate_one_fitness}
-\title{Calculates the relative fitness of two competitors}
+\title{Calculate the relative fitness of two competitors}
 \usage{
 calculate_one_fitness(
-  transfer_dilution = 1,
   competitor1_initial_count,
-  competitor1_initial_dilution = 1,
-  competitor1_initial_volume = 1,
   competitor1_final_count,
-  competitor1_final_dilution = 1,
-  competitor1_final_volume = 1,
   competitor2_initial_count,
-  competitor2_initial_dilution = 1,
-  competitor2_initial_volume = 1,
   competitor2_final_count,
-  competitor2_final_dilution = 1,
-  competitor2_final_volume = 1
+  transfer_dilution = 1,
+  initial_dilution = 1,
+  initial_volume = 1,
+  final_dilution = 1,
+  final_volume = 1
 )
 }
 \arguments{
-\item{transfer_dilution}{The total dilution factor for all serial transfers between the final and initial cultures.}
-
 \item{competitor1_initial_count}{Count of cells/colonies of reference competitor1 at the beginning of the competition}
-
-\item{competitor1_initial_dilution}{Dilution of reference competitor1 culture plated/analyzed at the beginning of the competition}
-
-\item{competitor1_initial_volume}{Volume of reference competitor1 culture plated/analyzed at the beginning of the competition}
 
 \item{competitor1_final_count}{Count of cells/colonies of reference competitor1 at the end of the competition}
 
-\item{competitor1_final_dilution}{Dilution of reference competitor1 culture plated/analyzed at the end of the competition}
-
-\item{competitor1_final_volume}{Volume of reference competitor1 culture plated/analyzed at the end of the competition}
-
 \item{competitor2_initial_count}{Count of cells/colonies of test competitor2 at the beginning of the competition}
-
-\item{competitor2_initial_dilution}{Dilution of test competitor2 culture plated/analyzed at the beginning of the competition}
-
-\item{competitor2_initial_volume}{Volume of test competitor2 plated/analyzed at the beginning of the competition}
 
 \item{competitor2_final_count}{Count of cells/colonies of test competitor2 at the end of the competition}
 
-\item{competitor2_final_dilution}{Dilution of test competitor2 culture plated/analyzed at the end of the competition}
+\item{transfer_dilution}{The total dilution factor for all serial transfers between the final and initial cultures}
 
-\item{competitor2_final_volume}{Volume of test competitor2 plated/analyzed at the end of the competition}
+\item{initial_dilution}{Dilution of culture plated/analyzed at the beginning of the competition}
+
+\item{initial_volume}{Volume of culture plated/analyzed at the beginning of the competition}
+
+\item{final_dilution}{Dilution of culture plated/analyzed at the end of the competition}
+
+\item{final_volume}{Volume of culture plated/analyzed at the end of the competition}
 }
 \value{
 Relative fitness of test competitor2 versus reference competitor1
@@ -55,9 +43,10 @@ Function for calculating the relative fitness for one replicate of a co-culture 
 is the base function used by fitnessR() on each row of data.
 }
 \details{
-Dilution factors can be provided as values >1 or <1. For example, you can input
+Dilution factors can be provided as values > 1 or < 1. For example, you can input
 either 1E-2 or 1E2 for a transfer dilution of 0.1 mL into 10 mL or either 1E-6 or 1E6 for
 the final_dilution if you transferred 0.1 mL to 10 mL three times in making the test tube you plated from.
+The output data frame will have all dilution factors converted to values > 1.
 
 The total volumes of the final and initial cultures are assumed to be equal. If they are not, then you can adjust the
 transfer_dilution accordingly.

@@ -14,7 +14,7 @@ flip_dilution = function(
 }
 
 
-#' Calculates the relative fitness of two competitors
+#' Calculate the relative fitness of two competitors
 #'
 #' Function for calculating the relative fitness for one replicate of a co-culture competition experiment. This
 #' is the base function used by fitnessR() on each row of data.
@@ -27,23 +27,18 @@ flip_dilution = function(
 #' The total volumes of the final and initial cultures are assumed to be equal. If they are not, then you can adjust the
 #' transfer_dilution accordingly.
 #'
-#' @param transfer_dilution The total dilution factor for all serial transfers between the final and initial cultures.
 #'
 #' @param competitor1_initial_count Count of cells/colonies of reference competitor1 at the beginning of the competition
-#' @param competitor1_initial_dilution Dilution of reference competitor1 culture plated/analyzed at the beginning of the competition
-#' @param competitor1_initial_volume Volume of reference competitor1 culture plated/analyzed at the beginning of the competition
-#'
 #' @param competitor1_final_count Count of cells/colonies of reference competitor1 at the end of the competition
-#' @param competitor1_final_dilution Dilution of reference competitor1 culture plated/analyzed at the end of the competition
-#' @param competitor1_final_volume Volume of reference competitor1 culture plated/analyzed at the end of the competition
-#'
 #' @param competitor2_initial_count Count of cells/colonies of test competitor2 at the beginning of the competition
-#' @param competitor2_initial_dilution Dilution of test competitor2 culture plated/analyzed at the beginning of the competition
-#' @param competitor2_initial_volume Volume of test competitor2 plated/analyzed at the beginning of the competition
-#'
 #' @param competitor2_final_count Count of cells/colonies of test competitor2 at the end of the competition
-#' @param competitor2_final_dilution Dilution of test competitor2 culture plated/analyzed at the end of the competition
-#' @param competitor2_final_volume Volume of test competitor2 plated/analyzed at the end of the competition
+#'
+#' @param transfer_dilution The total dilution factor for all serial transfers between the final and initial cultures
+#'
+#' @param initial_dilution Dilution of culture plated/analyzed at the beginning of the competition
+#' @param initial_volume Volume of culture plated/analyzed at the beginning of the competition
+#' @param final_dilution Dilution of culture plated/analyzed at the end of the competition
+#' @param final_volume Volume of culture plated/analyzed at the end of the competition
 #'
 #' @return Relative fitness of test competitor2 versus reference competitor1
 #'
@@ -53,41 +48,67 @@ flip_dilution = function(
 #'
 #' @export
 calculate_one_fitness = function(
-    transfer_dilution=1,
+
     competitor1_initial_count,
-    competitor1_initial_dilution=1,
-    competitor1_initial_volume=1,
     competitor1_final_count,
-    competitor1_final_dilution=1,
-    competitor1_final_volume=1,
     competitor2_initial_count,
-    competitor2_initial_dilution=1,
-    competitor2_initial_volume=1,
     competitor2_final_count,
-    competitor2_final_dilution=1,
-    competitor2_final_volume=1
+    transfer_dilution=1,
+    initial_dilution=1,
+    initial_volume=1,
+    final_dilution=1,
+    final_volume=1
 ){
 
-  # flip to be < 1 if needed
-  transfer_dilution = flip_dilution(transfer_dilution)
-  competitor1_initial_dilution = flip_dilution(competitor1_initial_dilution)
-  competitor1_final_dilution = flip_dilution(competitor1_final_dilution)
-  competitor2_initial_dilution = flip_dilution(competitor2_initial_dilution)
-  competitor2_final_dilution = flip_dilution(competitor2_final_dilution)
-
-  #Count of competitor1 initial colonies
-  competitor1_initial_total = competitor1_initial_count/competitor1_initial_dilution*competitor1_initial_volume
-  competitor1_final_total = competitor1_final_count/competitor1_final_dilution*competitor1_final_volume*transfer_dilution
-
-  #Count of competitor2 initial colonies
-  competitor2_initial_total = competitor2_initial_count/competitor2_initial_dilution*competitor2_initial_volume
-  competitor2_final_total = competitor2_final_count/competitor2_final_dilution*competitor2_final_volume*transfer_dilution
-
-  #Error if number of either competitor decreased
   line_number_text =""
   if(!is.na(pkg.env$error_line_number)) {
     line_number_text = paste0("ERROR encountered on row ", pkg.env$error_line_number, ".")
   }
+
+  # error if missing values provided
+
+  if(is.na(competitor1_initial_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_initial_count'.", line_number_text), collapse=" "))
+  }
+  if(is.na(competitor1_final_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_final_count'.", line_number_text), collapse=" "))
+  }
+  if(is.na(competitor2_initial_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_initial_count'.", line_number_text), collapse=" "))
+  }
+  if(is.na(competitor2_final_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_final_count'.", line_number_text), collapse=" "))
+  }
+  if(is.na(transfer_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'transfer_dilution'.", line_number_text), collapse=" "))
+  }
+  if(is.na(initial_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'initial_dilution'.", line_number_text), collapse=" "))
+  }
+  if(is.na(initial_volume)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'initial_volume'.", line_number_text), collapse=" "))
+  }
+  if(is.na(final_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'final_dilution'.", line_number_text), collapse=" "))
+  }
+  if(is.na(final_volume)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'final_volume'.", line_number_text), collapse=" "))
+  }
+
+  # flip to be < 1 if needed
+  transfer_dilution = flip_dilution(transfer_dilution)
+  initial_dilution = flip_dilution(initial_dilution)
+  final_dilution = flip_dilution(final_dilution)
+
+  #Count of competitor1 initial colonies
+  competitor1_initial_total = competitor1_initial_count*initial_dilution*initial_volume
+  competitor1_final_total = competitor1_final_count*final_dilution*final_volume*transfer_dilution
+
+  #Count of competitor2 initial colonies
+  competitor2_initial_total = competitor2_initial_count*initial_dilution*initial_volume
+  competitor2_final_total = competitor2_final_count*final_dilution*final_volume*transfer_dilution
+
+  #Error if number of either competitor decreased
   if (competitor1_final_total < competitor1_initial_total) {
     stop(paste(c("The final number of competitor1 is less than initial number of competitor1. Relative fitness cannot be calculated in this case.", line_number_text), collapse=" "))
   }
@@ -105,19 +126,15 @@ calculate_one_fitness = function(
 }
 
 calculate_one_fitness_wrapper = function(
-    transfer_dilution=1,
     competitor1_initial_count,
-    competitor1_initial_dilution=1,
-    competitor1_initial_volume=1,
     competitor1_final_count,
-    competitor1_final_dilution=1,
-    competitor1_final_volume=1,
     competitor2_initial_count,
-    competitor2_initial_dilution=1,
-    competitor2_initial_volume=1,
     competitor2_final_count,
-    competitor2_final_dilution=1,
-    competitor2_final_volume=1,
+    transfer_dilution=1,
+    initial_dilution=1,
+    initial_volume=1,
+    final_dilution=1,
+    final_volume=1,
     line_number
 ){
 
@@ -125,19 +142,15 @@ calculate_one_fitness_wrapper = function(
 
   relative_fitness = (
     calculate_one_fitness(
-      transfer_dilution=transfer_dilution,
       competitor1_initial_count=competitor1_initial_count,
-      competitor1_initial_dilution=competitor1_initial_dilution,
-      competitor1_initial_volume=competitor1_initial_volume,
       competitor1_final_count=competitor1_final_count,
-      competitor1_final_dilution=competitor1_final_dilution,
-      competitor1_final_volume=competitor1_final_volume,
       competitor2_initial_count=competitor2_initial_count,
-      competitor2_initial_dilution=competitor2_initial_dilution,
-      competitor2_initial_volume=competitor2_initial_volume,
       competitor2_final_count=competitor2_final_count,
-      competitor2_final_dilution=competitor2_final_dilution,
-      competitor2_final_volume=competitor2_final_volume
+      transfer_dilution=transfer_dilution,
+      initial_dilution=initial_dilution,
+      initial_volume=initial_volume,
+      final_dilution=final_dilution,
+      final_volume=final_volume
     )
   )
 
@@ -148,12 +161,14 @@ calculate_one_fitness_wrapper = function(
 }
 
 
-#' Calculates relative fitness given a data frame of cell/colony counts
+#' Calculate relative fitness given a data frame of cell/colony counts
 #'
-#'
+#' See calculate_one_fitness() for a description of the calculations/inputs.
 #'
 #' @param input_df Input data frame. Must have these columns:
 #' "competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".
+#'
+#'#' @param silent Input data frame. Suppress loading messages.
 #'
 #' @return Data frame with calculated columns added
 #'
@@ -163,7 +178,7 @@ calculate_one_fitness_wrapper = function(
 #' @export
 calculate_fitness = function(
   input_df,
-  silent=TRUE
+  silent=FALSE
 ){
 
   output_df = input_df
@@ -174,19 +189,15 @@ calculate_fitness = function(
 
   #must be in the same order as parameters to calculate_fitness
   competition_column_list = c(
-    "transfer_dilution",
     "competitor1_initial_count",
-    "competitor1_initial_dilution",
-    "competitor1_initial_volume",
     "competitor1_final_count",
-    "competitor1_final_dilution",
-    "competitor1_final_volume",
     "competitor2_initial_count",
-    "competitor2_initial_dilution",
-    "competitor2_initial_volume",
     "competitor2_final_count",
-    "competitor2_final_dilution",
-    "competitor2_final_volume"
+    "transfer_dilution",
+    "initial_dilution",
+    "initial_volume",
+    "final_dilution",
+    "final_volume"
   )
 
   required_competition_column_list = c(
@@ -200,8 +211,8 @@ calculate_fitness = function(
   metadata_columns_present_list =  col_names[!(col_names %in% competition_column_list)]
 
   if (!silent) {
-    cat("INPUT")
-    cat("Metadata columns:", paste(metadata_columns_present_list, collapse = ", "), "\n")
+    cat("INPUT DATA FRAME\n\n")
+    cat("Metadata columns:", paste(metadata_columns_present_list, collapse = ", "), "\n\n")
   }
 
   metadata_df = data.frame(input_df[,!(col_names %in% competition_column_list)])
@@ -210,11 +221,21 @@ calculate_fitness = function(
   competition_columns_present_list = col_names[(col_names %in% competition_column_list)]
 
   if (!silent) {
-    cat("Competition data columns:", paste(competition_columns_present_list, collapse = ", "), "\n")
+    cat("Competition data columns found:", paste(competition_columns_present_list, collapse = ", "), "\n\n")
+  }
+
+  competition_columns_set_to_defaults = competition_column_list[!(competition_column_list %in% competition_columns_present_list)]
+
+  if (!silent) {
+    cat("Competition parameters set to default value of 1:", paste(competition_columns_set_to_defaults, collapse = ", "), "\n\n")
+  }
+
+  if (!silent) {
+    cat("Number of rows:", paste(nrow(input_df), collapse = ", "), "\n\n")
   }
 
   if (!all(required_competition_column_list %in% required_competition_column_list)){
-    stop(paste(c("Not all required columns were present in input:", required_competition_column_list), collapse="\n  "))
+    stop(paste(c("Missing columns in input data frame. Required columns are:", required_competition_column_list), collapse="\n  "))
   }
 
   input_competition_df = data.frame(input_df[,!(col_names %in% competition_columns_present_list)])
@@ -238,10 +259,8 @@ calculate_fitness = function(
   #warn if both >1 and < 1 values found for dilution factors
   dilution_factor_column_list = c(
     "transfer_dilution",
-    "competitor1_initial_dilution",
-    "competitor1_final_dilution",
-    "competitor2_initial_dilution",
-    "competitor2_final_dilution"
+    "initial_dilution",
+    "final_dilution"
   )
   for (i in 1:length(dilution_factor_column_list)) {
     if ( (max(competition_df[,dilution_factor_column_list[i]]) > 1) && (max(competition_df[,dilution_factor_column_list[i]]) < 1)) {

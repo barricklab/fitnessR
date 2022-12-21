@@ -2,19 +2,21 @@
 % Please edit documentation in R/fitness.R
 \name{calculate_fitness}
 \alias{calculate_fitness}
-\title{Calculates relative fitness given a data frame of cell/colony counts}
+\title{Calculate relative fitness given a data frame of cell/colony counts}
 \usage{
-calculate_fitness(input_df, silent = TRUE)
+calculate_fitness(input_df, silent = FALSE)
 }
 \arguments{
 \item{input_df}{Input data frame. Must have these columns:
-"competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".}
+"competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".
+
+#' @param silent Input data frame. Suppress loading messages.}
 }
 \value{
 Data frame with calculated columns added
 }
 \description{
-Calculates relative fitness given a data frame of cell/colony counts
+See calculate_one_fitness() for a description of the calculations/inputs.
 }
 \examples{
 calculate_fitness(citT_competitions)

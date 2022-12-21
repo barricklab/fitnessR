@@ -12,6 +12,14 @@ LTEE_50K_time_course_competitions = read.csv("LTEE_50K_time_course_competitions.
 which_to_swap <- LTEE_50K_time_course_competitions$White.Pop == "607"
 LTEE_50K_time_course_competitions[which_to_swap, c("Red.Pop", "White.Pop", "Red.0", "White.0", "Red.1", "White.1")] = LTEE_50K_time_course_competitions[which_to_swap, c("White.Pop", "Red.Pop", "White.0", "Red.0", "White.1", "Red.1")]
 
+#some rows have no counts!
+LTEE_50K_time_course_competitions =
+  LTEE_50K_time_course_competitions %>%
+  filter(!is.na(Red.0)) %>%
+  filter(!is.na(White.0)) %>%
+  filter(!is.na(Red.1)) %>%
+  filter(!is.na(White.1))
+
 # Rename/add columns
 LTEE_50K_time_course_competitions=
   LTEE_50K_time_course_competitions %>%
@@ -27,8 +35,8 @@ LTEE_50K_time_course_competitions=
     complete=Complete,
     mutator.ever=Mutator.Ever,
     population=Population,
-    count1_dilution_factor=D.0,
-    count2_dilution_factor=D.1
+    initial_dilution=D.0,
+    final_dilution=D.1,
     ) %>%
   select(
     -Fitness

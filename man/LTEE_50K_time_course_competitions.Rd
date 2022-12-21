@@ -6,7 +6,7 @@
 \title{LTEE 50,000 generation time course competition data}
 \format{
 ## `LTEE_50K_time_course_competitions`
-A data frame with 6 rows and 7 columns:
+A data frame with 922 rows and 13 columns:
 \describe{
   \item{competitor1}{Designation for ancestral strain}
   \item{competitor2}{Designation for evolved population}

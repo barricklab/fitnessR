@@ -6,7 +6,7 @@
 \title{LTEE 50K versus 60K population competitions}
 \format{
 ## `LTEE_50K_vs_60K_competitions`
-A data frame with 6 rows and 7 columns:
+A data frame with 1127 rows and 12 columns:
 \describe{
   \item{competitor1}{Designation for 50K reference strain}
   \item{competitor2}{Designation for 60K population}

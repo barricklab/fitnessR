@@ -31,7 +31,7 @@
 #' in asexual populations. *Science* 342:1364–1367.
 #'
 #' @format ## `LTEE_50K_time_course_competitions`
-#' A data frame with 928 rows and 13 columns:
+#' A data frame with 922 rows and 13 columns:
 #' \describe{
 #'   \item{competitor1}{Designation for ancestral strain}
 #'   \item{competitor2}{Designation for evolved population}
@@ -57,7 +57,7 @@
 #' *Escherichia coli*. *Proc. Royal. Soc. B* 282:20152292.
 #'
 #' @format ## `LTEE_50K_vs_60K_competitions`
-#' A data frame with 1134 rows and 12 columns:
+#' A data frame with 1127 rows and 12 columns:
 #' \describe{
 #'   \item{competitor1}{Designation for 50K reference strain}
 #'   \item{competitor2}{Designation for 60K population}

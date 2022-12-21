@@ -12,6 +12,14 @@ LTEE_50K_vs_60K_competitions = read.csv("LTEE_50K_vs_60K_competitions.csv")
 which_to_swap <- LTEE_50K_vs_60K_competitions$Arabinose == "Negative"
 LTEE_50K_vs_60K_competitions[which_to_swap, c("Red.Pop", "White.Pop", "R.0", "W.0", "R.3", "W.3")] = LTEE_50K_vs_60K_competitions[which_to_swap, c("White.Pop", "Red.Pop", "W.0", "R.0", "W.3", "R.3")]
 
+#some rows have no counts!
+LTEE_50K_vs_60K_competitions =
+  LTEE_50K_vs_60K_competitions %>%
+  filter(!is.na(R.0)) %>%
+  filter(!is.na(W.0)) %>%
+  filter(!is.na(R.3)) %>%
+  filter(!is.na(W.3))
+
 # Rename/add columns
 LTEE_50K_vs_60K_competitions=
 LTEE_50K_vs_60K_competitions %>%
