@@ -10,7 +10,7 @@ LTEE_50K_time_course_competitions = read.csv("LTEE_50K_time_course_competitions.
 
 # Fix which is competitor 1
 which_to_swap <- LTEE_50K_time_course_competitions$White.Pop == "607"
-LTEE_50K_time_course_competitions[which_to_swap, c("Red.Pop", "White.Pop", "Red.0", "White.0", "Red.", "White.1")] = LTEE_50K_time_course_competitions[which_to_swap, c("White.Pop", "Red.Pop", "White.0", "Red.0", "White.1", "Red.1")]
+LTEE_50K_time_course_competitions[which_to_swap, c("Red.Pop", "White.Pop", "Red.0", "White.0", "Red.1", "White.1")] = LTEE_50K_time_course_competitions[which_to_swap, c("White.Pop", "Red.Pop", "White.0", "Red.0", "White.1", "Red.1")]
 
 # Rename/add columns
 LTEE_50K_time_course_competitions=

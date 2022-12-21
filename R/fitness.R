@@ -4,7 +4,7 @@ flip_dilution = function(
     dilution
 ){
   dilution=as.numeric(dilution)
-  if (dilution > 1) {
+  if (dilution < 1) {
     return (1/dilution)
   }
   return (dilution)
@@ -16,9 +16,10 @@ flip_dilution = function(
 #' Function for calculating the relative fitness for one replicate of a co-culture competition experiment. This
 #' is the base function used by fitnessR() on each row of data.
 #'
-#' Dilution factors can be provided as values >1 or <1. For example, you can input
+#' Dilution factors can be provided as values > 1 or < 1. For example, you can input
 #' either 1E-2 or 1E2 for a transfer dilution of 0.1 mL into 10 mL or either 1E-6 or 1E6 for
 #' the final_dilution if you transferred 0.1 mL to 10 mL three times in making the test tube you plated from.
+#' The output data frame will have all dilution factors converted to values > 1.
 #'
 #' The total volumes of the final and initial cultures are assumed to be equal. If they are not, then you can adjust the
 #' transfer_dilution accordingly.
@@ -72,12 +73,12 @@ calculate_one_fitness = function(
   competitor2_final_dilution = flip_dilution(competitor2_final_dilution)
 
   #Count of competitor1 initial colonies
-  competitor1_initial_total = competitor1_initial_count*competitor1_initial_dilution*competitor1_initial_volume
-  competitor1_final_total = competitor1_final_count*competitor1_final_dilution*competitor1_final_volume/transfer_dilution
+  competitor1_initial_total = competitor1_initial_count/competitor1_initial_dilution*competitor1_initial_volume
+  competitor1_final_total = competitor1_final_count/competitor1_final_dilution*competitor1_final_volume*transfer_dilution
 
   #Count of competitor2 initial colonies
-  competitor2_initial_total = competitor2_initial_count*competitor2_initial_dilution*competitor2_initial_volume
-  competitor2_final_total = competitor2_final_count*competitor2_final_dilution*competitor2_final_volume/transfer_dilution
+  competitor2_initial_total = competitor2_initial_count/competitor2_initial_dilution*competitor2_initial_volume
+  competitor2_final_total = competitor2_final_count/competitor2_final_dilution*competitor2_final_volume*transfer_dilution
 
   competitor1_malthusian_parameter = log(competitor1_final_total/competitor1_initial_total)
   competitor2_malthusian_parameter = log(competitor2_final_total/competitor2_initial_total)
