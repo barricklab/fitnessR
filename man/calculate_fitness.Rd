@@ -8,7 +8,7 @@ calculate_fitness(input_df, silent = TRUE)
 }
 \arguments{
 \item{input_df}{Input data frame. Must have these columns:
-"strain1_initial_count", "strain1_final_count", "strain2_initial_count", "strain2_final_count".}
+"competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".}
 }
 \value{
 Data frame with calculated columns added

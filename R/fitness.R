@@ -34,12 +34,12 @@ flip_dilution = function(
 #' @param competitor1_final_volume Volume of reference competitor1 culture plated/analyzed at the end of the competition
 #'
 #' @param competitor2_initial_count Count of cells/colonies of test competitor2 at the beginning of the competition
-#' @param competitor2_initial_dilution Count of cells/colonies of test competitor2 at the beginning of the competition
-#' @param competitor2_initial_volume Count of cells/colonies of test competitor2 at the beginning of the competition
+#' @param competitor2_initial_dilution Dilution of test competitor2 culture plated/analyzed at the beginning of the competition
+#' @param competitor2_initial_volume Volume of test competitor2 plated/analyzed at the beginning of the competition
 #'
 #' @param competitor2_final_count Count of cells/colonies of test competitor2 at the end of the competition
-#' @param competitor2_final_dilution Count of cells/colonies of test competitor2 at the end of the competition
-#' @param competitor2_final_volume Count of cells/colonies of test competitor2 at the end of the competition
+#' @param competitor2_final_dilution Dilution of test competitor2 culture plated/analyzed at the end of the competition
+#' @param competitor2_final_volume Volume of test competitor2 plated/analyzed at the end of the competition
 #'
 #' @return Relative fitness of test competitor2 versus reference competitor1
 #'

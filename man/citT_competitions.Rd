@@ -8,8 +8,8 @@
 ## `citT_competitions`
 A data frame with 6 rows and 7 columns:
 \describe{
-  \item{strain1}{Designation for strain without rnk-citT module}
-  \item{strain2}{Designation for strain with rnk-citT module}
+  \item{competitor1}{Designation for strain without rnk-citT module}
+  \item{competitor2}{Designation for strain with rnk-citT module}
   \item{other columns}{Competition data}
   ...
 }
@@ -27,8 +27,8 @@ genomes of Escherichia coli strains from the Long-Term Evolution Experiment.
 \details{
 Reference
 
-Leon, D., D’Alton, S., Quandt, E.M., ^Barrick, J.E. (2018) Innovation in an 
-E. coli evolution experiment is contingent on maintaining adaptive potential 
-until competition subsides. PLoS Genet. 14:e1007348.
+Leon, D., D’Alton, S., Quandt, E.M., Barrick, J.E. (2018) Innovation in an
+E. coli evolution experiment is contingent on maintaining adaptive potential
+until competition subsides. *PLoS Genet.* 14:e1007348.
 }
 \keyword{datasets}
