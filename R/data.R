@@ -56,7 +56,7 @@
 #' variability in fitness trajectories in the long-term evolution experiment with
 #' *Escherichia coli*. *Proc. Royal. Soc. B* 282:20152292.
 #'
-#' @format ## `LTEE_50K_vs_60K_competitions`
+#' @format ## `LTEE_40K_to_60K_competitions`
 #' A data frame with 1127 rows and 12 columns:
 #' \describe{
 #'   \item{competitor1}{Designation for 50K reference strain}
@@ -66,4 +66,4 @@
 #' }
 #' @source <https://doi.org/10.1098/rspb.2015.2292>
 #' @source <https://doi.org/10.5061/dryad.gd3dq>
-"LTEE_50K_vs_60K_competitions"
+"LTEE_40K_to_60K_competitions"
