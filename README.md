@@ -7,5 +7,4 @@ devtools::install_github("barricklab/fitnessR")
 ```
 You'll need to have the [devtools package](https://devtools.r-lib.org/) installed.
 
-For an example of using the package:
-* [Introduction to *fitnessR* vignette](https://htmlpreview.github.io/?https://github.com/barricklab/fitnessR/blob/main/vignettes/introduction.html)
+See the [Introduction to fitnessR Vignette](https://htmlpreview.github.io/?https://github.com/barricklab/fitnessR/blob/main/vignettes/introduction.html) to learn how to use the package on example data.
