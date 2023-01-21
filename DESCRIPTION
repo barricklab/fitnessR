@@ -2,18 +2,19 @@ Package: fitnessR
 Type: Package
 Title: fitnessR
 Version: 1.0.0
-Author: Jesus Chavarria-Palma, Jeffrey Barrick
+Author: Jeffrey E. Barrick, Devin M. Lake, Jesus E. Chavarria-Palma 
 Maintainer: Jeffrey Barrick <jeffrey.e.barrick@gmail.com>
-Description: Functions for calculating relative fitness from co-culture competition assays
-License: GPLv3
+Description: Calculate relative fitness from competition assays.
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-  dplyr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Depends: 
     R (>= 2.10)
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    tidyverse
 VignetteBuilder: knitr

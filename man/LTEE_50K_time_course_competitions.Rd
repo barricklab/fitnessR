@@ -5,19 +5,21 @@
 \alias{LTEE_50K_time_course_competitions}
 \title{LTEE 50,000 generation time course competition data}
 \format{
-## `LTEE_50K_time_course_competitions`
+\subsection{\code{LTEE_50K_time_course_competitions}}{
+
 A data frame with 922 rows and 13 columns:
 \describe{
-  \item{competitor1}{Designation for ancestral strain}
-  \item{competitor2}{Designation for evolved population}
-  \item{other columns}{Competition data}
-  ...
+\item{competitor1}{Designation for ancestral strain}
+\item{competitor2}{Designation for evolved population}
+\item{other columns}{Competition data. See competition_template()}
+...
+}
 }
 }
 \source{
-<https://doi.org/10.1126/science.1243357>
+\url{https://doi.org/10.1126/science.1243357}
 
-<https://doi.org/10.5061/dryad.0hc2m>
+\url{https://doi.org/10.5061/dryad.0hc2m}
 }
 \usage{
 LTEE_50K_time_course_competitions
@@ -30,6 +32,10 @@ genomes of Escherichia coli strains from the Long-Term Evolution Experiment.
 Reference
 
 Wiser M.J., Ribeck N., Lenski R.E. (2013) Long-term dynamics of adaptation
-in asexual populations. *Science* 342:1364–1367.
+in asexual populations. \emph{Science} 342:1364–1367.
+}
+\examples{
+calculate_fitness(LTEE_50K_time_course_competitions)
+
 }
 \keyword{datasets}

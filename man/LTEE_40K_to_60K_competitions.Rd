@@ -3,28 +3,30 @@
 \docType{data}
 \name{LTEE_40K_to_60K_competitions}
 \alias{LTEE_40K_to_60K_competitions}
-\title{LTEE 40K to 60K population competitions}
+\title{LTEE 50K versus 60K population competitions}
 \format{
-## `LTEE_40K_to_60K_competitions`
+\subsection{\code{LTEE_40K_to_60K_competitions}}{
+
 A data frame with 1127 rows and 12 columns:
 \describe{
-  \item{competitor1}{Designation for reference strain}
-  \item{competitor2}{Designation for 40K, 50K or 60K population}
-  \item{other columns}{Competition data}
-  ...
+\item{competitor1}{Designation for 50K reference strain}
+\item{competitor2}{Designation for 60K population}
+\item{other columns}{Competition data. See competition_template()}
+...
+}
 }
 }
 \source{
-<https://doi.org/10.1098/rspb.2015.2292>
+\url{https://doi.org/10.1098/rspb.2015.2292}
 
-<https://doi.org/10.5061/dryad.gd3dq>
+\url{https://doi.org/10.5061/dryad.gd3dq}
 }
 \usage{
 LTEE_40K_to_60K_competitions
 }
 \description{
 Data from competition experiments examining fitness changes in the E.coli LTEE
-populations at 40,0000, 50,000 and 60,000 generations.
+populations between 50,000 and 60,000 generations.
 }
 \details{
 Reference
@@ -34,6 +36,10 @@ Zaman, L., Turner, C.B., Wade, B.D., Maddamsetti, R., Burmeister, A.R., Baird, E
 Bundy, J., Grant, N.A., Card, K.J., Rowles, M., Weatherspoon, K., Papoulis, S.E.,
 Sullivan, R., Clark, C., Mulka, J.S., Hajela, N. (2015) Sustained fitness gains and
 variability in fitness trajectories in the long-term evolution experiment with
-*Escherichia coli*. *Proc. Royal. Soc. B* 282:20152292.
+\emph{Escherichia coli}. \emph{Proc. Royal. Soc. B} 282:20152292.
+}
+\examples{
+calculate_fitness(LTEE_40K_to_60K_competitions)
+
 }
 \keyword{datasets}

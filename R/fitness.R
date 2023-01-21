@@ -1,6 +1,7 @@
 
 # used for silently setting line number
 pkg.env <- new.env()
+pkg.env$error_line_number=NA
 
 #helper function
 flip_dilution = function(
@@ -43,12 +44,12 @@ flip_dilution = function(
 #' @return Relative fitness of test competitor2 versus reference competitor1
 #'
 #' @examples
-#' calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100, competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
+#' calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100,
+#' competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
 #' ## Returns 1.510974
 #'
 #' @export
 calculate_one_fitness = function(
-
     competitor1_initial_count,
     competitor1_final_count,
     competitor2_initial_count,
@@ -163,14 +164,21 @@ calculate_one_fitness_wrapper = function(
 
 #' Calculate relative fitness given a data frame of cell/colony counts
 #'
-#' See calculate_one_fitness() for a description of the calculations/inputs.
+#' See [fitnessR::calculate_one_fitness()] for a description of the calculations/inputs
+#' and [fitnessR::competition_template] for a template you can use to create
+#' a properly formatted input data file of counts and competition parameters.
+#'
+#' See competition_template
 #'
 #' @param input_df Input data frame. Must have these columns:
-#' "competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".
+#' "competitor1_initial_count", "competitor1_final_count",
+#' "competitor2_initial_count", "competitor2_final_count".
 #'
-#'#' @param silent Input data frame. Suppress loading messages.
+#' @param silent Input data frame. Suppress loading messages.
 #'
 #' @return Data frame with calculated columns added
+#'
+#' @seealso [fitnessR::competition_template], [fitnessR::calculate_one_fitness()]
 #'
 #' @examples
 #' calculate_fitness(citT_competitions)

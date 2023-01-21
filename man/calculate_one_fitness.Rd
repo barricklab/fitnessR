@@ -52,7 +52,8 @@ The total volumes of the final and initial cultures are assumed to be equal. If 
 transfer_dilution accordingly.
 }
 \examples{
-calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100, competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
+calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100,
+competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
 ## Returns 1.510974
 
 }

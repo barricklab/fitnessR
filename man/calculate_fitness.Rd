@@ -8,17 +8,26 @@ calculate_fitness(input_df, silent = FALSE)
 }
 \arguments{
 \item{input_df}{Input data frame. Must have these columns:
-"competitor1_initial_count", "competitor1_final_count", "competitor2_initial_count", "competitor2_final_count".
+"competitor1_initial_count", "competitor1_final_count",
+"competitor2_initial_count", "competitor2_final_count".}
 
-#' @param silent Input data frame. Suppress loading messages.}
+\item{silent}{Input data frame. Suppress loading messages.}
 }
 \value{
 Data frame with calculated columns added
 }
 \description{
-See calculate_one_fitness() for a description of the calculations/inputs.
+See \code{\link[=calculate_one_fitness]{calculate_one_fitness()}} for a description of the calculations/inputs
+and \link{competition_template} for a template you can use to create
+a properly formatted input data file of counts and competition parameters.
+}
+\details{
+See competition_template
 }
 \examples{
 calculate_fitness(citT_competitions)
 
+}
+\seealso{
+\link{competition_template}, \code{\link[=calculate_one_fitness]{calculate_one_fitness()}}
 }
