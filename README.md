@@ -24,7 +24,7 @@ devtools::install()
 
 ## Quick Start
 
-Download the [competition_template.csv](data-raw/competition_template.csv) file and fill it in as directed by the comments in the file.
+Download the [competition_template.csv](https://raw.githubusercontent.com/barricklab/fitnessR/main/data-raw/competition_template.csv) file. For example, right click and choose "Save Link As...". Open the file in a spreadsheet or text editor. Fill it in as directed by the comments in the file.
 
 Calculate relative fitness by running these commands in R:
 ```R
