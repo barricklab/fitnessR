@@ -85,5 +85,10 @@ ggplot(fitness_50k_summary, aes(x = competitor2, y = mean_fitness)) +
 
 If you wish to save the individual replicate data you can run `write_csv(fitness_50k, "fitness_50k.csv")` and if you want only the summary values you can run `write_csv(fitness_50k_summary, "fitness_50k_summary.csv")`.
 
+This package also conveniently contains a template for you to fill in with your own count data so that it's already formatted properly to work well with these functions.
 
+```{r}
+head(competition_template)
+```
 
+If you wish to use this template for your data, run `write_csv(competition_template, "count_data.csv")` and then enter in your data over the bracketed information. Once you've filled it in with your data, you can load it in using `read_csv(count_data.csv)`, and then use the `calculate_fitness()` function from there.
