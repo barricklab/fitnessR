@@ -10,6 +10,7 @@ calculate_one_fitness(
   competitor2_initial_count,
   competitor2_final_count,
   transfer_dilution = 1,
+  num_transfers = 1,
   initial_dilution = 1,
   initial_volume = 1,
   final_dilution = 1,
@@ -25,7 +26,9 @@ calculate_one_fitness(
 
 \item{competitor2_final_count}{Count of cells/colonies of test competitor2 at the end of the competition}
 
-\item{transfer_dilution}{The total dilution factor for all serial transfers between the final and initial cultures}
+\item{transfer_dilution}{The daily dilution factor for all serial transfers between the final and initial cultures}
+
+\item{num_transfers}{The total number of transfers in the competition}
 
 \item{initial_dilution}{Dilution of culture plated/analyzed at the beginning of the competition}
 
@@ -44,7 +47,7 @@ is the base function used by fitnessR() on each row of data.
 }
 \details{
 Dilution factors can be provided as values > 1 or < 1. For example, you can input
-either 1E-2 or 1E2 for a transfer dilution of 0.1 mL into 10 mL or either 1E-6 or 1E6 for
+either 1e-2 or 1e2 for a transfer dilution of 0.1 mL into 10 mL or either 1e-6 or 1e6 for
 the final_dilution if you transferred 0.1 mL to 10 mL three times in making the test tube you plated from.
 The output data frame will have all dilution factors converted to values > 1.
 
@@ -52,8 +55,8 @@ The total volumes of the final and initial cultures are assumed to be equal. If 
 transfer_dilution accordingly.
 }
 \examples{
-calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100,
-competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
+calculate_one_fitness(competitor1_initial_count = 150, competitor2_initial_count = 100,
+competitor1_final_count = 50, competitor2_final_count = 200, transfer_dilution = 1e-2, num_transfers = 1)
 ## Returns 1.510974
 
 }

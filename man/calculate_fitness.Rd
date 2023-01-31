@@ -26,6 +26,7 @@ See competition_template
 }
 \examples{
 calculate_fitness(citT_competitions)
+calculate_fitness(LTEE_50K_timecourse_competitions, transfer_dilution = 100, num_transfers = 3, initial_volume = 50, final_volume = 50)
 
 }
 \seealso{
