@@ -22,25 +22,29 @@ LTEE_40K_to_60K_competitions =
 
 # Rename/add columns
 #  Also gets rid of spaces in competitor names
-LTEE_40K_to_60K_competitions=
+LTEE_40K_to_60K_competitions =
 LTEE_40K_to_60K_competitions %>%
   rename(
-    flask=Flask,
-    generation=Generation,
-    person=Person,
-    date=Day.0.Date,
-    competitor1=Red.Pop,
-    competitor2=White.Pop,
-    competitor1_initial_count=R.0,
-    competitor2_initial_count=W.0,
-    competitor1_final_count=R.3,
-    competitor2_final_count=W.3,
-    replicate=Replicate
+    flask = Flask,
+    generation = Generation,
+    person = Person,
+    date = Day.0.Date,
+    competitor1 = Red.Pop,
+    competitor2 = White.Pop,
+    competitor1_initial_count = R.0,
+    competitor2_initial_count = W.0,
+    competitor1_final_count = R.3,
+    competitor2_final_count = W.3,
+    replicate = Replicate
     ) %>%
   mutate(
-    transfer_dilution=100*100*100,
-    competitor1=gsub(" ", "", competitor1),
-    competitor2=gsub(" ", "", competitor2),
+    transfer_dilution = 100*100*100,
+    initial_dilution = 100*100,
+    initial_volume = 50,
+    final_dilution = 100*100,
+    final_volume = 50,
+    competitor1 = gsub(" ", "", competitor1),
+    competitor2 = gsub(" ", "", competitor2),
     ) %>%
   select(
     -Arabinose

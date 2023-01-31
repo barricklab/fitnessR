@@ -1,17 +1,17 @@
 
 # used for silently setting line number
 pkg.env <- new.env()
-pkg.env$error_line_number=NA
+pkg.env$error_line_number = NA
 
 #helper function
 flip_dilution = function(
     dilution
 ){
-  dilution=as.numeric(dilution)
+  dilution = as.numeric(dilution)
   if (dilution < 1) {
-    return (1/dilution)
+    return(1/dilution)
   }
-  return (dilution)
+  return(dilution)
 }
 
 
@@ -44,8 +44,8 @@ flip_dilution = function(
 #' @return Relative fitness of test competitor2 versus reference competitor1
 #'
 #' @examples
-#' calculate_one_fitness(competitor1_initial_count=150, competitor2_initial_count=100,
-#' competitor1_final_count=50, competitor2_final_count=200, transfer_dilution=1E-2)
+#' calculate_one_fitness(competitor1_initial_count = 150, competitor2_initial_count = 100,
+#' competitor1_final_count = 50, competitor2_final_count = 200, transfer_dilution = 1E-2)
 #' ## Returns 1.510974
 #'
 #' @export
@@ -61,39 +61,39 @@ calculate_one_fitness = function(
     final_volume=1
 ){
 
-  line_number_text =""
-  if(!is.na(pkg.env$error_line_number)) {
+  line_number_text = ""
+  if (!is.na(pkg.env$error_line_number)) {
     line_number_text = paste0("ERROR encountered on row ", pkg.env$error_line_number, ".")
   }
 
   # error if missing values provided
 
-  if(is.na(competitor1_initial_count)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_initial_count'.", line_number_text), collapse=" "))
+  if (is.na(competitor1_initial_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_initial_count'.", line_number_text), collapse = " "))
   }
-  if(is.na(competitor1_final_count)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_final_count'.", line_number_text), collapse=" "))
+  if (is.na(competitor1_final_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor1_final_count'.", line_number_text), collapse = " "))
   }
-  if(is.na(competitor2_initial_count)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_initial_count'.", line_number_text), collapse=" "))
+  if (is.na(competitor2_initial_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_initial_count'.", line_number_text), collapse = " "))
   }
-  if(is.na(competitor2_final_count)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_final_count'.", line_number_text), collapse=" "))
+  if (is.na(competitor2_final_count)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'competitor2_final_count'.", line_number_text), collapse = " "))
   }
-  if(is.na(transfer_dilution)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'transfer_dilution'.", line_number_text), collapse=" "))
+  if (is.na(transfer_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'transfer_dilution'.", line_number_text), collapse = " "))
   }
-  if(is.na(initial_dilution)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'initial_dilution'.", line_number_text), collapse=" "))
+  if (is.na(initial_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'initial_dilution'.", line_number_text), collapse = " "))
   }
-  if(is.na(initial_volume)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'initial_volume'.", line_number_text), collapse=" "))
+  if (is.na(initial_volume)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'initial_volume'.", line_number_text), collapse = " "))
   }
-  if(is.na(final_dilution)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'final_dilution'.", line_number_text), collapse=" "))
+  if (is.na(final_dilution)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'final_dilution'.", line_number_text), collapse = " "))
   }
-  if(is.na(final_volume)) {
-    stop(paste(c("Missing value (NA or blank) provided for 'final_volume'.", line_number_text), collapse=" "))
+  if (is.na(final_volume)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'final_volume'.", line_number_text), collapse = " "))
   }
 
   # flip to be < 1 if needed
@@ -110,12 +110,21 @@ calculate_one_fitness = function(
   competitor2_final_total = competitor2_final_count*final_dilution*final_volume*transfer_dilution
 
   #Error if number of either competitor decreased
-  if (competitor1_final_total < competitor1_initial_total) {
-    stop(paste(c("The final number of competitor1 is less than initial number of competitor1. Relative fitness cannot be calculated in this case.", line_number_text), collapse=" "))
+  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution >= 100)) {
+    stop(paste(c("The final number of competitor1 is less than the initial number of competitor1. Relative fitness cannot be calculated in this case.", line_number_text), collapse = " "))
   }
 
-  if (competitor2_final_total < competitor2_initial_total) {
-    stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case. ", line_number_text), collapse=" "))
+  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution >= 100)) {
+    stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case.", line_number_text), collapse = " "))
+  }
+
+  #Error if number of either competitor decreased & transfer_dilution is suspiciously low
+  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution < 100)) {
+    stop(paste(c("The final number of competitor1 is less than the initial number of competitor1. Relative fitness cannot be calculated in this case. Double check your dilution factor.", line_number_text), collapse = " "))
+  }
+
+  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution < 100)) {
+    stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case. Double check your dilution factor.", line_number_text), collapse = " "))
   }
 
   competitor1_malthusian_parameter = log(competitor1_final_total/competitor1_initial_total)
@@ -139,19 +148,19 @@ calculate_one_fitness_wrapper = function(
     line_number
 ){
 
-  pkg.env$error_line_number=line_number
+  pkg.env$error_line_number = line_number
 
   relative_fitness = (
     calculate_one_fitness(
-      competitor1_initial_count=competitor1_initial_count,
-      competitor1_final_count=competitor1_final_count,
-      competitor2_initial_count=competitor2_initial_count,
-      competitor2_final_count=competitor2_final_count,
-      transfer_dilution=transfer_dilution,
-      initial_dilution=initial_dilution,
-      initial_volume=initial_volume,
-      final_dilution=final_dilution,
-      final_volume=final_volume
+      competitor1_initial_count = competitor1_initial_count,
+      competitor1_final_count = competitor1_final_count,
+      competitor2_initial_count = competitor2_initial_count,
+      competitor2_final_count = competitor2_final_count,
+      transfer_dilution = transfer_dilution,
+      initial_dilution = initial_dilution,
+      initial_volume = initial_volume,
+      final_dilution = final_dilution,
+      final_volume = final_volume
     )
   )
 
@@ -216,7 +225,7 @@ calculate_fitness = function(
   )
 
   # split
-  metadata_columns_present_list =  col_names[!(col_names %in% competition_column_list)]
+  metadata_columns_present_list = col_names[!(col_names %in% competition_column_list)]
 
   if (!silent) {
     cat("INPUT DATA FRAME\n\n")
@@ -242,8 +251,8 @@ calculate_fitness = function(
     cat("Number of rows:", paste(nrow(input_df), collapse = ", "), "\n\n")
   }
 
-  if (!all(required_competition_column_list %in% required_competition_column_list)){
-    stop(paste(c("Missing columns in input data frame. Required columns are:", required_competition_column_list), collapse="\n  "))
+  if (!all(required_competition_column_list %in% required_competition_column_list)) {
+    stop(paste(c("Missing columns in input data frame. Required columns are:", required_competition_column_list), collapse = "\n  "))
   }
 
   input_competition_df = data.frame(input_df[,!(col_names %in% competition_columns_present_list)])
@@ -260,7 +269,7 @@ calculate_fitness = function(
   }
 
   #add a line number for reporting errors
-  competition_df$line_number=1:nrow(competition_df)
+  competition_df$line_number = 1:nrow(competition_df)
 
   #flip all dilution factors to be >1
 
@@ -279,14 +288,14 @@ calculate_fitness = function(
 
   #perform fitness calculations
   relative_fitness = apply(competition_df, 1, function(X) {
-    do.call(calculate_one_fitness_wrapper,as.list(X))
+    do.call(calculate_one_fitness_wrapper, as.list(X))
   })
 
   #remove line numbers
   competition_df$line_number <- NULL
 
   #add back all metadata on the left, then calculated fitness values, then calculation results
-  output_df = cbind(metadata_df, data.frame(relative_fitness=relative_fitness), competition_df)
+  output_df = cbind(metadata_df, data.frame(relative_fitness = relative_fitness), competition_df)
 
   return(output_df)
 }

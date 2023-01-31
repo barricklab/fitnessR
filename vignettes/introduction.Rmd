@@ -50,7 +50,7 @@ To demonstrate performing relative fitness calculations using `fitnessR`, we'll 
 
 ```{r}
 ara_p1_50k <- LTEE_40K_to_60K_competitions %>% 
-  filter(competitor2 == 'Ara+1', generation == 50000, competitor1=="REL10948") %>% 
+  filter(competitor2 == 'Ara+1', generation == 50000, competitor1 == "REL10948") %>% 
   select(!c('flask','date','replicate','person'))
 head(ara_p1_50k)
 ```
@@ -72,15 +72,15 @@ fitness_50k <- LTEE_40K_to_60K_competitions %>%
 
 fitness_50k_summary <- fitness_50k %>% group_by(competitor2) %>%
   summarize(mean_fitness = mean(relative_fitness),
-            upper = mean(relative_fitness, na.rm=T) + 
-                       qt(0.975, df = n()-1) * sd(relative_fitness, na.rm = T)/sqrt(n()),
-            lower = mean(relative_fitness, na.rm=T) - 
-                       qt(0.975, df = n()-1) * sd(relative_fitness, na.rm = T)/sqrt(n()))
+            upper = mean(relative_fitness, na.rm = T) + 
+                       qt(0.975, df = n() - 1) * sd(relative_fitness, na.rm = T)/sqrt(n()),
+            lower = mean(relative_fitness, na.rm = T) - 
+                       qt(0.975, df = n() - 1) * sd(relative_fitness, na.rm = T)/sqrt(n()))
 
 ggplot(fitness_50k_summary, aes(x = competitor2, y = mean_fitness)) + 
   geom_point() +
   geom_errorbar(aes(ymin = lower, ymax = upper)) +
-  geom_hline(yintercept=1)
+  geom_hline(yintercept = 1)
 ```
 
 If you wish to save the individual replicate data you can run `write_csv(fitness_50k, "fitness_50k.csv")` and if you want only the summary values you can run `write_csv(fitness_50k_summary, "fitness_50k_summary.csv")`.
