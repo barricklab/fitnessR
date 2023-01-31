@@ -21,7 +21,7 @@ flip_dilution = function(
 #' is the base function used by fitnessR() on each row of data.
 #'
 #' Dilution factors can be provided as values > 1 or < 1. For example, you can input
-#' either 1E-2 or 1E2 for a transfer dilution of 0.1 mL into 10 mL or either 1E-6 or 1E6 for
+#' either 1e-2 or 1e2 for a transfer dilution of 0.1 mL into 10 mL or either 1e-6 or 1e6 for
 #' the final_dilution if you transferred 0.1 mL to 10 mL three times in making the test tube you plated from.
 #' The output data frame will have all dilution factors converted to values > 1.
 #'
@@ -34,7 +34,8 @@ flip_dilution = function(
 #' @param competitor2_initial_count Count of cells/colonies of test competitor2 at the beginning of the competition
 #' @param competitor2_final_count Count of cells/colonies of test competitor2 at the end of the competition
 #'
-#' @param transfer_dilution The total dilution factor for all serial transfers between the final and initial cultures
+#' @param transfer_dilution The daily dilution factor for all serial transfers between the final and initial cultures
+#' @param num_transfers The total number of transfers in the competition
 #'
 #' @param initial_dilution Dilution of culture plated/analyzed at the beginning of the competition
 #' @param initial_volume Volume of culture plated/analyzed at the beginning of the competition
@@ -45,7 +46,7 @@ flip_dilution = function(
 #'
 #' @examples
 #' calculate_one_fitness(competitor1_initial_count = 150, competitor2_initial_count = 100,
-#' competitor1_final_count = 50, competitor2_final_count = 200, transfer_dilution = 1E-2)
+#' competitor1_final_count = 50, competitor2_final_count = 200, transfer_dilution = 1e-2, num_transfers = 1)
 #' ## Returns 1.510974
 #'
 #' @export
@@ -55,6 +56,7 @@ calculate_one_fitness = function(
     competitor2_initial_count,
     competitor2_final_count,
     transfer_dilution=1,
+    num_transfers=1,
     initial_dilution=1,
     initial_volume=1,
     final_dilution=1,
@@ -83,6 +85,9 @@ calculate_one_fitness = function(
   if (is.na(transfer_dilution)) {
     stop(paste(c("Missing value (NA or blank) provided for 'transfer_dilution'.", line_number_text), collapse = " "))
   }
+  if (is.na(num_transfers)) {
+    stop(paste(c("Missing value (NA or blank) provided for 'num_transfers'.", line_number_text), collapse = " "))
+  }
   if (is.na(initial_dilution)) {
     stop(paste(c("Missing value (NA or blank) provided for 'initial_dilution'.", line_number_text), collapse = " "))
   }
@@ -103,28 +108,33 @@ calculate_one_fitness = function(
 
   #Count of competitor1 initial colonies
   competitor1_initial_total = competitor1_initial_count*initial_dilution*initial_volume
-  competitor1_final_total = competitor1_final_count*final_dilution*final_volume*transfer_dilution
+  competitor1_final_total = competitor1_final_count*final_dilution*final_volume*transfer_dilution^num_transfers
 
   #Count of competitor2 initial colonies
   competitor2_initial_total = competitor2_initial_count*initial_dilution*initial_volume
-  competitor2_final_total = competitor2_final_count*final_dilution*final_volume*transfer_dilution
+  competitor2_final_total = competitor2_final_count*final_dilution*final_volume*transfer_dilution^num_transfers
 
   #Error if number of either competitor decreased
-  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution >= 100)) {
+  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution^num_transfers >= 100)) {
     stop(paste(c("The final number of competitor1 is less than the initial number of competitor1. Relative fitness cannot be calculated in this case.", line_number_text), collapse = " "))
   }
 
-  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution >= 100)) {
+  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution^num_transfers >= 100)) {
     stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case.", line_number_text), collapse = " "))
   }
 
   #Error if number of either competitor decreased & transfer_dilution is suspiciously low
-  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution < 100)) {
+  if ((competitor1_final_total < competitor1_initial_total) & (transfer_dilution^num_transfers < 100)) {
     stop(paste(c("The final number of competitor1 is less than the initial number of competitor1. Relative fitness cannot be calculated in this case. Double check your dilution factor.", line_number_text), collapse = " "))
   }
 
-  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution < 100)) {
+  if ((competitor2_final_total < competitor2_initial_total) & (transfer_dilution^num_transfers < 100)) {
     stop(paste(c("The final number of competitor2 is less than the initial number of competitor2. Relative fitness cannot be calculated in this case. Double check your dilution factor.", line_number_text), collapse = " "))
+  }
+
+  #Error if none if the defaults have been changed
+  if ((transfer_dilution == 1) & (num_transfers == 1) & (initial_dilution == 1) & (initial_volume == 1) & (final_dilution == 1) & (final_volume == 1)) {
+    stop(paste(c("None of the experimental parameters have been changed from their defaults. Make sure to enter in your plating volumes, dilution factors, and number of days in your competition.", line_number_text), collapse = " "))
   }
 
   competitor1_malthusian_parameter = log(competitor1_final_total/competitor1_initial_total)
@@ -141,6 +151,7 @@ calculate_one_fitness_wrapper = function(
     competitor2_initial_count,
     competitor2_final_count,
     transfer_dilution=1,
+    num_transfers=1,
     initial_dilution=1,
     initial_volume=1,
     final_dilution=1,
@@ -157,6 +168,7 @@ calculate_one_fitness_wrapper = function(
       competitor2_initial_count = competitor2_initial_count,
       competitor2_final_count = competitor2_final_count,
       transfer_dilution = transfer_dilution,
+      num_transfers = num_transfers,
       initial_dilution = initial_dilution,
       initial_volume = initial_volume,
       final_dilution = final_dilution,
@@ -191,6 +203,7 @@ calculate_one_fitness_wrapper = function(
 #'
 #' @examples
 #' calculate_fitness(citT_competitions)
+#' calculate_fitness(LTEE_50K_timecourse_competitions, transfer_dilution = 100, num_transfers = 3, initial_volume = 50, final_volume = 50)
 #'
 #' @export
 calculate_fitness = function(
@@ -204,13 +217,14 @@ calculate_fitness = function(
   # and normalize and complete it by adding defaults that are missing
   col_names = names(input_df)
 
-  #must be in the same order as parameters to calculate_fitness
+  #must be in the same order as parameters to use calculate_fitness()
   competition_column_list = c(
     "competitor1_initial_count",
     "competitor1_final_count",
     "competitor2_initial_count",
     "competitor2_final_count",
     "transfer_dilution",
+    "num_transfers",
     "initial_dilution",
     "initial_volume",
     "final_dilution",

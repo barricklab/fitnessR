@@ -22,13 +22,13 @@ library(fitnessR)
 library(tidyverse)
 ```
 
-We'll begin by taking a look at one of the example data sets built into the `fitnessR` package. This data set is from competitions of populations of cells that evolved for 40,000, 50,000, or 60,000 generations in the Long-Term Evolution Experiment with _E. coli_ (LTEE) versus two different reference strains of _E. coli_ [Lenski et al. 2015](https://royalsocietypublishing.org/doi/10.1098/rspb.2015.2292).
+We'll begin by taking a look at one of the example datasets built into the `fitnessR` package. This dataset is from competitions of populations of cells that evolved for 40,000, 50,000, or 60,000 generations in the Long-Term Evolution Experiment with _E. coli_ (LTEE) versus two different reference strains of _E. coli_ [Lenski et al. 2015](https://royalsocietypublishing.org/doi/10.1098/rspb.2015.2292).
 
 ```{r}
 head(LTEE_40K_to_60K_competitions)
 ```
 
-The data set contains competition counts from 9 different LTEE populations:
+The dataset contains competition counts from 9 different LTEE populations:
 
 ```{r echo=FALSE}
 unique(LTEE_40K_to_60K_competitions$competitor2)
@@ -91,4 +91,4 @@ This package also conveniently contains a template for you to fill in with your 
 head(competition_template)
 ```
 
-If you wish to use this template for your data, run `write_csv(competition_template, "count_data.csv")` and then enter in your data over the bracketed information. Once you've filled it in with your data, you can load it in using `read_csv(count_data.csv)`, and then use the `calculate_fitness()` function from there.
+If you wish to use this template for your data, run `write_csv(competition_template, "count_data.csv")` and then enter in your data over the bracketed information. The template does include instructions and examples at the bottom. You can leave those comments as longs as you use `read_csv(count_data.csv, comment = "#")` to load the data. Once you've loaded your data filled file into your current R environment, you should be able to use the `calculate_fitness()` function on the dataset without having to provide any additional parameters.

@@ -21,25 +21,25 @@ LTEE_50K_time_course_competitions =
   filter(!is.na(White.1))
 
 # Rename/add columns
-LTEE_50K_time_course_competitions=
+LTEE_50K_time_course_competitions =
   LTEE_50K_time_course_competitions %>%
   rename(
-    generation=Generation,
-    competitor1=Red.Pop,
-    competitor2=White.Pop,
-    competitor1_initial_count=Red.0,
-    competitor2_initial_count=White.0,
-    competitor1_final_count=Red.1,
-    competitor2_final_count=White.1,
-    replicate=Rep,
-    complete=Complete,
-    mutator.ever=Mutator.Ever,
-    population=Population,
-    initial_dilution=D.0,
-    final_dilution=D.1,
-    ) %>%
+    generation = Generation,
+    competitor1 = Red.Pop,
+    competitor2 = White.Pop,
+    competitor1_initial_count = Red.0,
+    competitor2_initial_count = White.0,
+    competitor1_final_count = Red.1,
+    competitor2_final_count = White.1,
+    replicate = Rep,
+    complete = Complete,
+    mutator.ever = Mutator.Ever,
+    population = Population,
+    initial_dilution = D.0,
+    final_dilution = D.1,
+  ) %>%
   select(
-    -Fitness
+    !Fitness
   )
 
 usethis::use_data(LTEE_50K_time_course_competitions, overwrite = TRUE)

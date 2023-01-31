@@ -1,16 +1,16 @@
-﻿competitor1,competitor2,competitor1_initial_count,competitor2_initial_count,competitor1_final_count,competitor2_final_count,transfer_dilution,initial_dilution,initial_volume,final_dilution,final_volume
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
-[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1
+competitor1,competitor2,competitor1_initial_count,competitor2_initial_count,competitor1_final_count,competitor2_final_count,transfer_dilution,num_transfers,initial_dilution,initial_volume,final_dilution,final_volume
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
+[ENTER NAME],[ENTER NAME],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],[ENTER COUNTS],100,1,1,1,1,1
 # INSTRUCTIONS
 # Fill in cells containing placeholders in [BRACKETS]. Change competition assay parameters from their default values as needed and remove/add lines as necessary
 # Each line should have the results for one competition assay replicate. Repeat the names of competitor1 and competitor2 for all replicates of the same competition.
@@ -27,9 +27,11 @@
 ## Example: 198
 # competitor2_final_count - the counts of competitor 2 cells after the competitors are co-cultured (e.g., colony counts).
 ## Example: 271
-# transfer_dilution – the overall dilution factor for all passages of the cells in co-culture.
+# transfer_dilution – the daily dilution factor for all passages of the cells in co-culture.
 ## Example: 100  (If 2 x 50 µl of saturated cultures of each competitor were mixed into 9.9 mL of fresh medium and then the culture grew to saturation.)
-# NOTE: If you used the same dilution procedure and analyzed the same volume of sample at the initial and final timepoints then you can leave the remaining columns as the DEFAULT values of 1 or delete them.
+# num_transfers – the number of transfers in competition experiment.
+## Example: 3  (If 2 x 50 µl of saturated cultures of each competitor were mixed into 9.9 mL of fresh medium, then transferred into fresh medium on the following two days, and plated on the third day.)
+# NOTE: For the following columns, if you used the same dilution procedure and analyzed the same volume of sample at the initial and final timepoints then you can leave the remaining columns as the DEFAULT values of 1 or delete them.
 # initial_dilution – the dilution factor for the initial sample that was plated.
 ## Example: 10000  (If 2 x 50 µl of saturated cultures of each competitor were mixed into 9.9 mL of fresh medium, then 100 µl of this was diluted into 9.9 ml of sterile saline.)
 # initial_volume – volume of the initial dilution that was analyzed for counting each competitor.  The units on initial_volume and final_volume must be the same.
