@@ -53,6 +53,11 @@ The output data frame will have all dilution factors converted to values > 1.
 
 The total volumes of the final and initial cultures are assumed to be equal. If they are not, then you can adjust the
 transfer_dilution accordingly.
+
+This figure shows how each of the input parameters relate to an experimental design that uses plating and colony counting
+determine the number of each competitor present before and after they are propagated in co-culture.
+
+\figure{competition_diagram.png}{Competition Diagram}
 }
 \examples{
 calculate_one_fitness(competitor1_initial_count = 150, competitor2_initial_count = 100,

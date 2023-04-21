@@ -28,6 +28,10 @@ flip_dilution = function(
 #' The total volumes of the final and initial cultures are assumed to be equal. If they are not, then you can adjust the
 #' transfer_dilution accordingly.
 #'
+#' This figure shows how each of the input parameters relate to an experimental design that uses plating and colony counting
+#' determine the number of each competitor present before and after they are propagated in co-culture.
+#'
+#'![Competition Diagram](competition_diagram.png "Competition Diagram")
 #'
 #' @param competitor1_initial_count Count of cells/colonies of reference competitor1 at the beginning of the competition
 #' @param competitor1_final_count Count of cells/colonies of reference competitor1 at the end of the competition

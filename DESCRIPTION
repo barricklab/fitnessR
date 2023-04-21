@@ -1,7 +1,7 @@
 Package: fitnessR
 Type: Package
 Title: fitnessR
-Version: 1.0.0
+Version: 1.0.1
 Author: Jeffrey E. Barrick, Devin M. Lake, Jesus E. Chavarria-Palma 
 Maintainer: Jeffrey Barrick <jeffrey.e.barrick@gmail.com>
 Description: Calculate relative fitness from competition assays.
@@ -10,7 +10,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 Suggests: 

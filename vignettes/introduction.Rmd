@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This R package is for calculating the relative fitness of two cell types from competition assays. Counts of each cell type before and after they are co-cultured are input. This vignette demonstrates how to analyze and plot some example competition assay data.
+This R package is for calculating the relative fitness of two cell types from competition assays. Parameters of the competition procedure and counts of each cell type before and after they are co-cultured are input. This vignette demonstrates how to analyze and plot some example competition assay data.
 
 ```{r setup, message=FALSE}
 library(fitnessR)
@@ -24,9 +24,21 @@ library(tidyverse)
 
 We'll begin by taking a look at one of the example datasets built into the `fitnessR` package. This dataset is from competitions of populations of cells that evolved for 40,000, 50,000, or 60,000 generations in the Long-Term Evolution Experiment with _E. coli_ (LTEE) versus two different reference strains of _E. coli_ [Lenski et al. 2015](https://royalsocietypublishing.org/doi/10.1098/rspb.2015.2292).
 
+The standard LTEE competition experiment design and how to set the fitnessR parameters (columns in the input data frame) to match it are shown in this figure 
+
+```{r, out.width = "100%", echo=FALSE}
+knitr::include_graphics("competition_diagram_LTEE.png")
+```
+
+The example competitions were conducted as is typical for LTEE samples, with a 100-fold dilution each day, and $10^4$ initial and final dilutions of the samples for plating. They were conducted over 3 transfers (days in competition). Only 50 µl of the initial and final dilutions was plates, versus the normal 80 µl used in LTEE competitions, so that there were fewer total colonies to count.
+
+The input data frame looks like this.
+
 ```{r}
 head(LTEE_40K_to_60K_competitions)
 ```
+
+Since the initial and final dilutions and plating volumes are equal, they could be left out of the data frame and fitnessR would calculate the same relative fitness values, but they are provided here for clarity.
 
 The dataset contains competition counts from 9 different LTEE populations:
 
